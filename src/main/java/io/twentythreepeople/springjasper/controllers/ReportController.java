@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -29,13 +30,13 @@ public class ReportController {
     return "hello world";
   }
 
-  @GetMapping("/pdf")
-  public void pdf(HttpServletResponse response) throws JRException, IOException {
-    InputStream jasperStream = this.getClass().getResourceAsStream("/reports/report-example.jasper");
+  @GetMapping("/certificate")
+  public void certificate(HttpServletResponse response) throws JRException, IOException {
+    InputStream jasperStream = this.getClass().getResourceAsStream("/reports/report-example.jrxml");
     Map<String, Object> params = new HashMap<>();
-    params.put("Title", "Hello wOrLd");
+    params.put("Title", "Hola Mundo");
 
-    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperStream);
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
     response.setContentType("application/x-pdf");
