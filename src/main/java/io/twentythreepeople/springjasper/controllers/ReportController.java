@@ -35,6 +35,7 @@ public class ReportController {
     InputStream jasperStream = this.getClass().getResourceAsStream("/reports/report-example.jrxml");
     Map<String, Object> params = new HashMap<>();
     params.put("Title", "Hola Mundo");
+    params.put("QRCodeURL", "https://23people.io");
 
     JasperReport jasperReport = JasperCompileManager.compileReport(jasperStream);
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());

@@ -11,6 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="Title" class="java.lang.String"/>
+	<parameter name="QRCodeURL" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -36,6 +37,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Title}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="244" y="560" width="72" height="69" uuid="c34518f5-1daa-485e-9c59-1cfc7fffbaa3"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode($P{QRCodeURL},com.google.zxing.BarcodeFormat.QR_CODE,300,300))]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageFooter>
